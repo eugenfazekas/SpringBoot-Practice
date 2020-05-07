@@ -2,7 +2,7 @@ package com.test.service;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("spying")
 public class SpyService {
 
 	public String spyService() {
