@@ -32,25 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      protected void configure(HttpSecurity http) throws Exception {
 	        http
 	                .authorizeRequests()
-	                .antMatchers("/index.html").permitAll()
-	                .antMatchers("/login").permitAll()
-	                .antMatchers("/profile/**").authenticated()
-	                .antMatchers("/admin/**").hasRole("ADMIN")
-	                .antMatchers("/management/**").hasAnyRole("ADMIN","MANAGER")
-	                .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1")
-	                .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
-	                .antMatchers("/api/public/users").hasRole("ADMIN")
-	                .and()
-	                .formLogin()
-	                .loginProcessingUrl("/login")
-	                .loginPage("/login")
-	                .usernameParameter("changedusernameparameter")
-	                .passwordParameter("changedpasswordparameter")
-	                .and()
-	                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-	                .logoutSuccessUrl("/login")
-	                .and()
-	                .rememberMe().tokenValiditySeconds(2592001).key("mySecret!").rememberMeParameter("changedremembermeparameter");
+	                .antMatchers("*").permitAll();
+
 	    }
 	  	   
 	 @Bean
