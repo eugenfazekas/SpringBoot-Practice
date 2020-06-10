@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta name="description" content=""/>
+	     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
+<title>Image Save</title>
+</head>
+<body>
+	<div th:if="${message}">
+		<h2 th:text="${message}" /></h2>
+	</div>
+	<div>
+		<img src="../images/letoltes.jpg" th:src="@{'data:image/jpg;base64,' + ${image}}" />
+	</div>
+	
+	<h1 th:text="${username}"></h1>
+	<h1 th:text="${imagec}"></h1>
+
+</body>
+</html>
