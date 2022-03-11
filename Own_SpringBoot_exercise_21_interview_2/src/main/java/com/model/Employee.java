@@ -1,40 +1,28 @@
 package com.model;
 
-import java.util.Arrays;
 import java.util.Objects;
 
-public class Employee extends User {
-
-	private String department[];
+public class Employee {
+	
+	private String firstName;
+	private String lastName;
 		
-	public Employee() {
+	public Employee() {}
+
+	public String getFirstName() {
+		return firstName;
 	}
 	
-	public String getEmployeeFirstName() {
-		return getFirstName();
-	}
-
-	public Employee setEmployeeFirstName(String firstName) {
-		super.setFirstName(firstName);
-			return this;
-	}
-
-	public String getEmployeeLastName() {
-		return getLastName();
-	}
-
-	public Employee setEmployeeLastName(String lastName) {
-		super.setLastName(lastName);
-			return this;
-	}
-
-	public String[] getDepartment() {
-		return department;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	
-	public Employee setDepartment(String[] department) {
-		this.department = department;
-		return this;
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Override
@@ -46,12 +34,11 @@ public class Employee extends User {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		return Objects.equals(getFirstName(), other.getFirstName()) && Objects.equals(getLastName(), other.getLastName());
+		return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName);
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Employee [firstName=" + getFirstName() + ", lastName=" + getLastName() + ", department="
-				+ Arrays.toString(department) + "]";
+		return "Employee [firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 }

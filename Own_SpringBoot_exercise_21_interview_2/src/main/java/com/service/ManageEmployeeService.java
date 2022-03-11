@@ -8,73 +8,109 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.model.Department;
+import com.model.EmployeeDetails;
 import com.model.Employee;
-import com.model.User;
-import com.util.UserFirstNameComparator;
+import com.repository.EmployeeRepository;
+import com.util.DepartmentNameComparator;
+import com.util.EmployeeFirstNameComparator;
 
 @Service
 public class ManageEmployeeService {
 	
-	private Set<User> users;
-	private Set<Employee> employees = new HashSet<Employee>();
 
-	
-	public void addEmployees(Employee employee) {
-		employees.add(employee);
+	private EmployeeRepository employeeRepository;
+			
+	public ManageEmployeeService(EmployeeRepository employeeRepository) {
+		this.employeeRepository = employeeRepository;
 	}
 	
-	public Set<Employee> getEmployees() {
+	
+	public String addEmployee(EmployeeDetails employee) {
+		String addEmployees = null;
+		if (employeeExist(employee) == 0) {
+			employeeRepository.addEmployee(employee);
+			addEmployees = "addEmployees";
+		}
+		return addEmployees;
+	}
+
+	public String initDepartments() {
+		String initDepartments = "initDepartments";
+		for(EmployeeDetails e : employeeRepository.getEmployeeDetails()) {
+			String departments[] = e.getDepartment();
+				for(int i = 0; i < departments.length; i++ ) {
+					if(departmentExist(departments[i]) == 0) {
+						addDepartment(departments[i]);
+					}
+				}
+		}		
+		return initDepartments;
+	}
+	
+	public String addDepartment(String department) {
+		String addDepartment = null;
+		if(departmentExist(department) == 0)
+			employeeRepository.addDepartment(new Department(department,getEmployeesByDepartment(department)));
+		return addDepartment;
+	}
+	
+	public int employeeExist(EmployeeDetails employee) {		
+		int employeeCheck = 0 ;
+		for (EmployeeDetails e : employeeRepository.getEmployeeDetails()) {
+			if(e.getEmployeeFirstName().equals(employee.getEmployeeFirstName()) &&
+			   e.getEmployeeLastName().equals(employee.getEmployeeLastName()))
+				employeeCheck = 1;
+		}
+		return employeeCheck;
+	}
+	
+	public int departmentExist(String department) {		
+		int departmentCheck = 0;
+		for (Department d : employeeRepository.getDepartments())
+			if(department.equals(d.getDepartmentName()))
+				departmentCheck = 1;
+		return departmentCheck;
+	}
+	
+	public List<Employee> getEmployees() {
+		List<Employee> employees = new ArrayList<Employee>();
+			for(EmployeeDetails e : employeeRepository.getEmployeeDetails())
+				employees.add(employeeDetailsToEmployee(e));
+			Collections.sort(employees, new EmployeeFirstNameComparator());
 		return employees;
 	}
 	
-	public List<User> getEmployeesList(){
-		users = new HashSet<>();
-		
-		for(Employee e : employees) {
-			User user = new User();
-			user.setFirstName(e.getEmployeeFirstName());
-			user.setLastName(e.getEmployeeLastName());
-			users.add(user);
-		}	
-		
-		List<User> usersList = fromHashSetToArrayList(users);
-		Collections.sort(usersList, new UserFirstNameComparator());
-			return usersList;
-	}
-		
-	public List<User> getEmployeesByDepartment(String departmentName) {
-		String depart = "";
-		users = new HashSet<>();
-		for(Employee e :employees ) {			
+	public List<Employee> getEmployeesByDepartment(String departmentName) {
+		Set<Employee> employees = new HashSet<>();
+		for(EmployeeDetails e :employeeRepository.getEmployeeDetails() ) {			
 			String departments[] = e.getDepartment();		
 				for(int i = 0; i < departments.length; i++) {
-					System.out.println("departments[i]: "+departments[i]+" departmentName: "+ departmentName);
-					depart = departments[i];
+					String depart = departments[i];
 					if(depart.equals(departmentName)) {
-						User user = new User();
-						user.setFirstName(e.getFirstName());
-						user.setLastName(e.getLastName());
-						users.add(user);
+						employees.add(employeeDetailsToEmployee(e));
 				 }
 			 }				 
 		}
-		List<User> usersList = fromHashSetToArrayList(users);
-		Collections.sort(usersList, new UserFirstNameComparator());
-			return usersList;
+		return hashSetToList(employees);
 	}
 	
-	public Set<String> getDepartment() {		
-		Set<String> departments = new HashSet<>();	
-		for(Employee e :employees ) {
-			String dep[] =  e.getDepartment();
-			for(int i = 0; i < dep.length; i++)
-				departments.add(dep[i]);
-		}
-			return departments;
+	public List<Department> getDepartmentsWithEmployees() {
+		List<Department> departments = employeeRepository.getDepartments();
+		Collections.sort(departments, new DepartmentNameComparator());
+		return departments;
 	}
 	
-	public List<User> fromHashSetToArrayList(Set<User> users) {
-		List<User> filtered_users = new ArrayList<>(users);
-			return filtered_users;
+	public Employee employeeDetailsToEmployee(EmployeeDetails e) {
+		Employee employee = new Employee();
+		employee.setFirstName(e.getFirstName());
+		employee.setLastName(e.getLastName());
+		return employee;
+	}
+	
+	public List<Employee> hashSetToList(Set<Employee> set) {			
+		List<Employee> newList = new ArrayList<Employee>(set);
+		Collections.sort(newList, new EmployeeFirstNameComparator());
+			return newList;
 	}
 }

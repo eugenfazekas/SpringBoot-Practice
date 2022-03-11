@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InputStringService {
-			
-	public InputStringService() {}
-	
-	public String readFromInputStream(InputStream inputStream) throws IOException {
+		
+	public String readFromInputStream(InputStream inputStream) throws IOException   {
 	    StringBuilder resultStringBuilder = new StringBuilder();
 	    try (BufferedReader br
 	      = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -23,15 +21,14 @@ public class InputStringService {
 	    		return resultStringBuilder.toString();
 	}
 
-	public String rawString() {
+	public String rawString(String inputFilePath) {
 		
 		ClassLoader classLoader = getClass().getClassLoader();
-		InputStream inputStream = classLoader.getResourceAsStream("static//employee.xml");		
+		InputStream inputStream = classLoader.getResourceAsStream(inputFilePath);		
 		String data = "";
 			try {
 			data = readFromInputStream(inputStream);
 			} catch(IOException e) {
-				System.out.println("File Read failed: "+ e);
 			}		
 			return data;
 	}
