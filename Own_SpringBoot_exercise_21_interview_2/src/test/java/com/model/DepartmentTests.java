@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -75,6 +76,28 @@ public class DepartmentTests {
 
 		Department department1 = new Department("it",employees);
 		assertEquals(true,department1.equals(department1));
+	}
+	
+	@Test
+	@DisplayName("Testing Department hashCode function with equal objects")
+	void hashCodeTest1() {
+		
+		Department department1 = new Department("it");
+		Department department2 = new Department("it");
+
+
+		Assert.assertTrue(department1.hashCode() == department2.hashCode());
+	}
+	
+	@Test
+	@DisplayName("Testing Department hashCode function with non equal objects")
+	void hashCodeTest2() {
+		
+		Department department1 = new Department("it");
+		Department department2 = new Department("it2");
+
+
+		Assert.assertTrue(department1.hashCode() != department2.hashCode());
 	}
 	
 	@Test

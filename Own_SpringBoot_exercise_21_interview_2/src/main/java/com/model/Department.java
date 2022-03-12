@@ -35,6 +35,13 @@ public class Department {
 		this.employees = employees;
 	}
 
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(departmentName);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

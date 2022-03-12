@@ -29,19 +29,19 @@ public class ManageEmployeeService {
 	public String addEmployee(EmployeeDetails employee) {
 		String addEmployees = null;
 		if (employeeExist(employee) == 0) {
-			employeeRepository.addEmployee(employee);
-			addEmployees = "addEmployees";
+			addEmployees =	employeeRepository.addEmployee(employee);
 		}
 		return addEmployees;
 	}
 
-	public String initDepartments() {
-		String initDepartments = "initDepartments";
+	public int initDepartments() {
+		int initDepartments = 0;
 		for(EmployeeDetails e : employeeRepository.getEmployeeDetails()) {
 			String departments[] = e.getDepartment();
 				for(int i = 0; i < departments.length; i++ ) {
 					if(departmentExist(departments[i]) == 0) {
 						addDepartment(departments[i]);
+						initDepartments++;
 					}
 				}
 		}		
@@ -51,7 +51,7 @@ public class ManageEmployeeService {
 	public String addDepartment(String department) {
 		String addDepartment = null;
 		if(departmentExist(department) == 0)
-			employeeRepository.addDepartment(new Department(department,getEmployeesByDepartment(department)));
+			addDepartment =	employeeRepository.addDepartment(new Department(department,getEmployeesByDepartment(department)));
 		return addDepartment;
 	}
 	
@@ -59,7 +59,7 @@ public class ManageEmployeeService {
 		int employeeCheck = 0 ;
 		for (EmployeeDetails e : employeeRepository.getEmployeeDetails()) {
 			if(e.getEmployeeFirstName().equals(employee.getEmployeeFirstName()) &&
-			   e.getEmployeeLastName().equals(employee.getEmployeeLastName()))
+			   e.getEmployeeLastName().equals(employee.getEmployeeLastName())) 
 				employeeCheck = 1;
 		}
 		return employeeCheck;

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -80,6 +81,37 @@ public class EmployeeDetailsTests {
 	void equalsTest5() {
 
 		assertEquals(false,getEmployeeDetails().equals(new Employee()));
+	}
+	
+	@Test
+	@DisplayName("Testing EmployeeDetails hashCode function with equal objects")
+	void hashCodeTest1() {
+		
+		EmployeeDetails employee1 = new EmployeeDetails();
+		employee1.setFirstName("John");
+		employee1.setLastName("Markovics");
+		
+		EmployeeDetails employee2 = new EmployeeDetails();
+		employee2.setFirstName("John");
+		employee2.setLastName("Markovics");
+
+
+		Assert.assertTrue(employee1.hashCode() == employee2.hashCode());
+	}
+	
+	@Test
+	@DisplayName("Testing EmployeeDetails hashCode function with non equal objects")
+	void hashCodeTest2() {
+		
+		EmployeeDetails employee1 = new EmployeeDetails();
+		employee1.setFirstName("John1");
+		employee1.setLastName("Markovics");
+		
+		EmployeeDetails employee2 = new EmployeeDetails();
+		employee2.setFirstName("John");
+		employee2.setLastName("Markovics");
+
+		Assert.assertTrue(employee1.hashCode() != employee2.hashCode());
 	}
 		
 	@Test

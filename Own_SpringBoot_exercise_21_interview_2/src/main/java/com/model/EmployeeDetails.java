@@ -37,6 +37,13 @@ public class EmployeeDetails extends Employee {
 		return this;
 	}
 
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getEmployeeFirstName(), getEmployeeLastName());
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

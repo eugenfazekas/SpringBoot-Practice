@@ -10,7 +10,9 @@ public class EmployeeFirstNameComparator  implements Comparator <Employee> {
 	public int compare(Employee a , Employee b ) {
 
 		int firstNameComapre = a.getFirstName().compareTo(b.getFirstName());
-			
-			return firstNameComapre;		
+		
+		int laststNameComapre = a.getLastName().compareTo(b.getLastName());
+					
+			return firstNameComapre == 0 ? laststNameComapre : firstNameComapre;		
 	}
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class InputStringService {
 		
-	public String readFromInputStream(InputStream inputStream) throws IOException   {
+	public String readFromInputStream(InputStream inputStream) {
 	    StringBuilder resultStringBuilder = new StringBuilder();
 	    try (BufferedReader br
 	      = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -17,19 +17,15 @@ public class InputStringService {
 	        while ((line = br.readLine()) != null) {
 	            resultStringBuilder.append(line).append("");
 	        }
-	    }
+	    } catch (IOException e) {
+			e.printStackTrace();
+		}
 	    		return resultStringBuilder.toString();
 	}
 
-	public String rawString(String inputFilePath) {
-		
+	public String rawString(String inputFilePath) {	
 		ClassLoader classLoader = getClass().getClassLoader();
 		InputStream inputStream = classLoader.getResourceAsStream(inputFilePath);		
-		String data = "";
-			try {
-			data = readFromInputStream(inputStream);
-			} catch(IOException e) {
-			}		
-			return data;
+			return readFromInputStream(inputStream);
 	}
 }

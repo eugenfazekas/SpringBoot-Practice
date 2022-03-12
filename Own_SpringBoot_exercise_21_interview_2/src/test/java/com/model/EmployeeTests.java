@@ -3,8 +3,7 @@ package com.model;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-
+import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -76,6 +75,38 @@ public class EmployeeTests {
 
 
 		assertEquals(false,getEmployee().equals(new EmployeeDetails()));
+	}
+	
+	@Test
+	@DisplayName("Testing Employee hashCode function with equal objects")
+	void hashCodeTest1() {
+		
+		Employee employee1 = new Employee();
+		employee1.setFirstName("John");
+		employee1.setLastName("Markovics");
+		
+		Employee employee2 = new Employee();
+		employee2.setFirstName("John");
+		employee2.setLastName("Markovics");
+
+
+		Assert.assertTrue(employee1.hashCode() == employee2.hashCode());
+	}
+	
+	@Test
+	@DisplayName("Testing Employee hashCode function with non equal objects")
+	void hashCodeTest2() {
+		
+		Employee employee1 = new Employee();
+		employee1.setFirstName("John1");
+		employee1.setLastName("Markovics");
+		
+		Employee employee2 = new Employee();
+		employee2.setFirstName("John");
+		employee2.setLastName("Markovics");
+
+
+		Assert.assertTrue(employee1.hashCode() != employee2.hashCode());
 	}
 		
 	@Test
