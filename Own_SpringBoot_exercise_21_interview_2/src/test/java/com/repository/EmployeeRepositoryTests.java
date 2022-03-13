@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.model.Department;
+import com.model.Employee;
 import com.model.EmployeeDetails;
 
 @SpringBootTest
@@ -21,43 +21,88 @@ public class EmployeeRepositoryTests {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
-	private List<EmployeeDetails> employees;
+	private List<Employee> employees;
 	private List<Department> departments;
 
-	@Test
 
-	void a3() {
-		
+	@Test
+	@DisplayName("Testing EmployeeRepository registerEmployee function")
+	void a1() {
 		EmployeeDetails employee1 = new EmployeeDetails();
-		employee1.setFirstName("John1");
+		employee1.setFirstName("John");
 		employee1.setLastName("Markovics");
 		
-		employees = new ArrayList<>();
-		employees.add(employee1);
+		EmployeeDetails employee2 = new EmployeeDetails();
+		employee2.setFirstName("John");
+		employee2.setLastName("Krugger");
 		
-		assertEquals(employees, employeeRepository.getEmployeeDetails());
+		assertEquals("EMPLOYEEDETAILS Registered", employeeRepository.registerEmployee(employee1,"it"));
+		assertEquals("EMPLOYEEDETAILS Registered", employeeRepository.registerEmployee(employee2,"it"));
 	}
+	
 	@Test
-
-	void a4() {
+	@DisplayName("Testing EmployeeRepository getEmployees function")
+	void a2() {
 		
-		Department department1 = new Department("it");
-		departments = new ArrayList<>();
-		departments.add(department1);
+		employees = new ArrayList<>();
+		Employee employee1 = new Employee();
+		employee1.setFirstName("John");
+		employee1.setLastName("Markovics");
+		
+		Employee employee2 = new Employee();
+		employee2.setFirstName("John");
+		employee2.setLastName("Krugger");
+		
+		employees.add(employee1);
+		employees.add(employee2);
+		
+		assertEquals(employees, employeeRepository.getEmployees());
+	}
+	
+	@Test
+	@DisplayName("Testing EmployeeRepository getEmployeeDetails function")
+	void a3() {
+		
+		List<String> departments = new ArrayList<String>();
+		departments.add("it");
+		departments.add("it");
 		
 		assertEquals(departments, employeeRepository.getDepartments());
 	}	
+	
 	@Test
-
-	void a1() {
+	@DisplayName("Testing EmployeeRepository getEmployeeDetails function")
+	void a4() {
+		
+		String dep[] = {"it"};
+		List<String> departments = new ArrayList<String>();
+		departments.add("it");
+		
 		EmployeeDetails employee1 = new EmployeeDetails();
-		employee1.setFirstName("John1");
+		employee1.setFirstName("John");
 		employee1.setLastName("Markovics");
-		assertEquals("addEmployees", employeeRepository.addEmployee(employee1));
+		
+		assertEquals(1, employeeRepository.employeeDetailsExistCheck(employee1,"it"));
 	}
+	
 	@Test
-	void a2() {
-		Department department1 = new Department("it");
-		assertEquals("addDepartment", employeeRepository.addDepartment(department1));
+	@DisplayName("Testing EmployeeRepository getEmployeeByDepartment function")
+	void a5() {
+		
+		employees = new ArrayList<Employee>();
+		
+		Employee employee1 = new Employee();
+		employee1.setFirstName("John");
+		employee1.setLastName("Markovics");
+		
+		Employee employee2 = new Employee();
+		employee2.setFirstName("John");
+		employee2.setLastName("Krugger");
+		
+		employees.add(employee1);
+		employees.add(employee2);
+		
+		
+		assertEquals(employees, employeeRepository.getEmployeesByDepartment("it"));
 	}
 }

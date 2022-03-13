@@ -1,12 +1,12 @@
 package com.model;
 
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,7 +35,7 @@ public class DepartmentTests {
 	}	
 
 	@Test
-	@DisplayName("Testing Department equals function with cloned object")
+	@DisplayName("Testing Department equals function with equal object")
 	void equalsTest1() {
 
 		Department department1 = new Department("it",employees);
@@ -55,7 +55,7 @@ public class DepartmentTests {
 	}
 	
 	@Test
-	@DisplayName("Testing Department equals function with null object")
+	@DisplayName("Testing Department equals function with null")
 	void equalsTest3() {
 
 		Department department1 = new Department("it",employees);
@@ -86,7 +86,7 @@ public class DepartmentTests {
 		Department department2 = new Department("it");
 
 
-		Assert.assertTrue(department1.hashCode() == department2.hashCode());
+		assertEquals(true,department1.hashCode() == department2.hashCode());
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class DepartmentTests {
 		Department department2 = new Department("it2");
 
 
-		Assert.assertTrue(department1.hashCode() != department2.hashCode());
+		assertEquals(true, department1.hashCode() != department2.hashCode());
 	}
 	
 	@Test

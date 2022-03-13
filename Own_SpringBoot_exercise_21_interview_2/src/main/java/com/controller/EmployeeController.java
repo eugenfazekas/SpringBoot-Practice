@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.model.Department;
 import com.model.Employee;
+import com.service.BindEmployeeService;
 import com.service.ManageEmployeeService;
 
 @RestController
@@ -17,11 +18,15 @@ import com.service.ManageEmployeeService;
 public class EmployeeController {
 	
 	private ManageEmployeeService manageEmployeeService;
+	private BindEmployeeService bindEmployeeService;
 	
-	public EmployeeController(ManageEmployeeService manageEmployeeService) {
-		this.manageEmployeeService = manageEmployeeService;
-	}
 
+
+	public EmployeeController(ManageEmployeeService manageEmployeeService, BindEmployeeService bindEmployeeService) {
+		super();
+		this.manageEmployeeService = manageEmployeeService;
+		this.bindEmployeeService = bindEmployeeService;
+	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Employee> getEmployeesByName() {
@@ -36,6 +41,11 @@ public class EmployeeController {
 	@RequestMapping(value = "groupby/department",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Department> getDepartmentsWithEmployees() {
 		return manageEmployeeService.getDepartmentsWithEmployees();
+	}
+	
+	@RequestMapping(value = "initFileRead",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public int initFileRead() {
+		return bindEmployeeService.initFileRead();
 	}
 }
  

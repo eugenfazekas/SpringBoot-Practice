@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,6 +32,7 @@ public class EmployeeControllerTests {
 	private ManageEmployeeService manageEmployeeService;
 	
 	@Test
+	@DisplayName("Testing EmployeeController getEmployees function")
 	public void getEmployeesByName() throws Exception {
 
 		when(manageEmployeeService.getEmployees()).thenReturn(new ArrayList<Employee>());
@@ -42,6 +45,7 @@ public class EmployeeControllerTests {
 	}
 	
 	@Test
+	@DisplayName("Testing EmployeeController getEmployeesByDepartment function")
 	public void getEmployeesByDepartment() throws Exception {
 		
 		when(manageEmployeeService.getEmployees()).thenReturn(new ArrayList<Employee>());
@@ -55,6 +59,7 @@ public class EmployeeControllerTests {
 	}
 
 	@Test
+	@DisplayName("Testing EmployeeController getDepartmentsWithEmployees function")
 	public void getDepartmentsWithEmployees() throws Exception {
 		when(manageEmployeeService.getEmployees()).thenReturn(new ArrayList<Employee>());
 		
@@ -64,5 +69,4 @@ public class EmployeeControllerTests {
 
 		verify(manageEmployeeService, times(1)).getDepartmentsWithEmployees();
 	}
-
 }

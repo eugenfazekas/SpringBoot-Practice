@@ -3,7 +3,6 @@ package com.model;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,7 +42,7 @@ public class EmployeeTests {
 	}
 
 	@Test
-	@DisplayName("Testing Employee equals function with cloned object")
+	@DisplayName("Testing Employee equals function with equal object")
 	void equalsTest2() {
 
 		Employee employee2 = new Employee();
@@ -63,7 +62,7 @@ public class EmployeeTests {
 	}
 	
 	@Test
-	@DisplayName("Testing Employee equals function with null object")
+	@DisplayName("Testing Employee equals function with null")
 	void equalsTest4() {
 
 		assertEquals(false,getEmployee().equals(null));
@@ -90,7 +89,7 @@ public class EmployeeTests {
 		employee2.setLastName("Markovics");
 
 
-		Assert.assertTrue(employee1.hashCode() == employee2.hashCode());
+		assertEquals(true,employee1.hashCode() == employee2.hashCode());
 	}
 	
 	@Test
@@ -106,7 +105,7 @@ public class EmployeeTests {
 		employee2.setLastName("Markovics");
 
 
-		Assert.assertTrue(employee1.hashCode() != employee2.hashCode());
+		assertEquals(true,employee1.hashCode() != employee2.hashCode());
 	}
 		
 	@Test

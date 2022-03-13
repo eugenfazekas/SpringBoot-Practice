@@ -17,17 +17,6 @@ public class BindEmployeeService {
 	public BindEmployeeService(InputStringService inputStringService, ManageEmployeeService manageEmployeeService) {
 		this.inputStringService = inputStringService;
 		this.manageEmployeeService = manageEmployeeService;
-		
-		/*
-		String filteredEmptyStringRawEmployees[] = filterEmptyString(rawEmployees());
-			for(String u : filteredEmptyStringRawEmployees) 
-				manageEmployeeService.addEmployee(bindEmployee(u)); 
-			for (Employee  e :  manageEmployeeService.getEmployees())
-				System.out.println(e.toString());	
-			manageEmployeeService.initDepartments();
-			for ( Department d : manageEmployeeService.getDepartmentsWithEmployees())
-				System.out.println(d);
-				*/
 	}
 	
 	String[] rawEmployees() {
@@ -41,7 +30,6 @@ public class BindEmployeeService {
 	
 	EmployeeDetails bindEmployee(String input) {	
 		
-		System.out.println("bindEmployee input: "+input);
 		String substr = createSubString(input,6,input.length());
 		String employeeSplit[] = splitElements(substr, "</name>");
 		String split_firstName_lastName[] = splitElements(employeeSplit[0]," ");
@@ -50,7 +38,7 @@ public class BindEmployeeService {
 		employeeDetails
 				.setEmployeeFirstName(split_firstName_lastName[0])
 				.setEmployeeLastName(split_firstName_lastName[1])
-				.setDepartment(splitDepartments(employeeSplit[1]));
+				.setDepartment(splitElements(employeeSplit[1], "<department>|<\\/department>"));
 			return employeeDetails;
 	}
 	
@@ -58,14 +46,12 @@ public class BindEmployeeService {
 		String substr = input.substring(start, end); //39 - length
 			return substr;
 	}
-	
-	
+		
 	String[] splitElements(String input, String regex) {
 		String split [] = input.split(regex);
-			return split;
+			return filterEmptyString(split);
 	}
 
-	
 	String[] filterEmptyString( String[] input ) {		
 		String[] departments = Arrays.stream(input)
                 .filter(value ->
@@ -75,9 +61,11 @@ public class BindEmployeeService {
 		return departments;
 	}
 	
-	
-	String[] splitDepartments(String input) {
-		String[] temp_department = splitElements(input, "<department>|<\\/department>");
-			return filterEmptyString(temp_department);
-	} 
+	public int initFileRead() {
+				
+		String filteredEmptyStringRawEmployees[] = filterEmptyString(rawEmployees());
+		for(String u : filteredEmptyStringRawEmployees) 
+			manageEmployeeService.registerEmployee(bindEmployee(u)); 
+		return manageEmployeeService.getEmployees().size();
+		}
 }

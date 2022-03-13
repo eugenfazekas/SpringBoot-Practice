@@ -3,6 +3,7 @@ package com.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,7 @@ public class BindEmployeeServiceTests {
 
 
 	@Test
+	@DisplayName("Testing BindEmployeeService rawString function")
 	void rawEmployees() {
 		when(inputStringService.rawString("static//employee.xml")).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
 				+ "<list>"
@@ -41,7 +43,8 @@ public class BindEmployeeServiceTests {
 	}
 	
 	@Test
-	void bindedEmployee() {	
+	@DisplayName("Testing BindEmployeeService bindEmployee function")
+	void bindEmployee() {	
 		
 		String input = "<name>George Smith</name><department>finance</department>";
 		EmployeeDetails employeeDetails1 = new EmployeeDetails();
@@ -55,6 +58,7 @@ public class BindEmployeeServiceTests {
 	}
 	
 	@Test
+	@DisplayName("Testing BindEmployeeService createSubString function")
 	void createSubString() {
 		String input = "1234567890";
 		String subst = bindEmployeeService.createSubString(input,5 ,input.length());
@@ -62,6 +66,7 @@ public class BindEmployeeServiceTests {
 	}
 	
 	@Test
+	@DisplayName("Testing BindEmployeeService splitElements function")
 	void splitElements() {
 		String input = "12345 67890";
 		String splits[] = bindEmployeeService.splitElements(input," ");
@@ -71,18 +76,10 @@ public class BindEmployeeServiceTests {
 	}
 
 	@Test
+	@DisplayName("Testing BindEmployeeService filterEmptyString function")
 	void filterEmptyString() {		
 		String arr1 [] = {"12345","","67890"};
 		String filterEmptyString[] = bindEmployeeService.filterEmptyString(arr1);
 		assertEquals(2,filterEmptyString.length);
 	}
-	
-	@Test
-	void splitDepartments() {
-		String department = "<department>finance</department><department>it</department>";
-		String departments[] = bindEmployeeService.splitDepartments(department);
-		assertEquals("finance",departments[0]);
-		assertEquals("it",departments[1]);
-		assertEquals(2,departments.length);
-	} 
 }

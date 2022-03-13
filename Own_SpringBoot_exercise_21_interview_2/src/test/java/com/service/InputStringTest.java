@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.InputStream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,7 @@ public class InputStringTest {
 	private InputStringService inputStringService;
 
 	@Test
+	@DisplayName("Testing InputStringService readFromInputStream function")
 	void readFromInputStream1() {
 		
 		ClassLoader classLoader = getClass().getClassLoader();
@@ -29,6 +31,7 @@ public class InputStringTest {
 	}
 	
 	@Test
+	@DisplayName("Testing InputStringService readFromInputStream function with invalid path")
 	void readFromInputStream2() {
 		
 		ClassLoader classLoader = getClass().getClassLoader();
@@ -42,6 +45,7 @@ public class InputStringTest {
 	}
 	
 	@Test
+	@DisplayName("Testing InputStringService rawString function")
 	void rawString() {	
 		String data_readed  =  inputStringService.rawString("static//employee_test.xml");
 		String expcted = "\ufeff<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><employee><name>George Smith</name><department>finance</department></employee></list>";

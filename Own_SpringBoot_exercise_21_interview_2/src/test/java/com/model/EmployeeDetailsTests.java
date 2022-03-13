@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,7 +49,7 @@ public class EmployeeDetailsTests {
 	}
 
 	@Test
-	@DisplayName("Testing EmployeeDetails equals function with cloned object")
+	@DisplayName("Testing EmployeeDetails equals function with equal object")
 	void equalsTest2() {
 
 		EmployeeDetails EmployeeDetails2 = new EmployeeDetails();
@@ -70,7 +69,7 @@ public class EmployeeDetailsTests {
 	}
 	
 	@Test
-	@DisplayName("Testing EmployeeDetails equals function with null object")
+	@DisplayName("Testing EmployeeDetails equals function with null")
 	void equalsTest4() {
 
 		assertEquals(false,getEmployeeDetails().equals(null));
@@ -96,7 +95,7 @@ public class EmployeeDetailsTests {
 		employee2.setLastName("Markovics");
 
 
-		Assert.assertTrue(employee1.hashCode() == employee2.hashCode());
+		assertEquals(true,employee1.hashCode() == employee2.hashCode());
 	}
 	
 	@Test
@@ -111,7 +110,7 @@ public class EmployeeDetailsTests {
 		employee2.setFirstName("John");
 		employee2.setLastName("Markovics");
 
-		Assert.assertTrue(employee1.hashCode() != employee2.hashCode());
+		assertEquals(true,employee1.hashCode() != employee2.hashCode());
 	}
 		
 	@Test

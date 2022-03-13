@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS employees;
+
+CREATE TABLE IF NOT EXISTS employees (
+id INT AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(64),
+lastname VARCHAR(64),
+department VARCHAR(64)
+);
+
+
+
+
+
