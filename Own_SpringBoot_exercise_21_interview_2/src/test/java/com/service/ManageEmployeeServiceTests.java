@@ -5,9 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +30,6 @@ public class ManageEmployeeServiceTests {
 	
 	private List<Employee> employees;
 	private List<Department> deparments;
-	private List<String> deparmentsName;
 	private EmployeeDetails employeeDetails;
 	
 	@Test

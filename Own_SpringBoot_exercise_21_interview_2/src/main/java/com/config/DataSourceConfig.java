@@ -6,13 +6,9 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application.properties")
 @Configuration
 public class DataSourceConfig {
-	
-
 	
     @Bean
     public DataSource getDataSource() {

@@ -26,7 +26,7 @@ public class BindEmployeeServiceTests {
 	@Test
 	@DisplayName("Testing BindEmployeeService rawString function")
 	void rawEmployees() {
-		when(inputStringService.rawString("static//employee.xml")).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
+		when(inputStringService.rawString("static/employee.xml")).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 				+ "<list>"
 				+ "<employee>"
 				+ "<name>George Smith</name>"

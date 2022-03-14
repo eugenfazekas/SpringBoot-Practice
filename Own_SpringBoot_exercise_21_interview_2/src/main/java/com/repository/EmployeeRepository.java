@@ -37,6 +37,9 @@ public class EmployeeRepository {
 		}
 	};
 
+	/**
+	The registerEmployee function will insert EmployeeDetails objects to db;
+	*/
 	public String registerEmployee(EmployeeDetails employeeDetails, String department) {
 		
 		String repositoryResponse = null;
@@ -55,6 +58,9 @@ public class EmployeeRepository {
 		return repositoryResponse;
 	}
 	
+	/**
+	The getEmployees function request all employees from db;
+	*/
 	public List<Employee> getEmployees() {
 		List<Employee> employees = new ArrayList<>();
 		final String  sql = "SELECT * FROM employees";
@@ -67,6 +73,9 @@ public class EmployeeRepository {
 		return employees;
 	}
 	
+	/**
+	The getDepartments create a String list of departments;
+	*/
 	public List<String> getDepartments() {
 		
 		List<String> departments = jdbc.query(
@@ -79,6 +88,9 @@ public class EmployeeRepository {
 		return departments;
 	}
 
+	/**
+	The employeeDetailsExistCheck function chech if Employee already registered to db;;
+	*/
 	public Integer employeeDetailsExistCheck(EmployeeDetails employeeDetails,String deparment) {
 
 		Integer repositoryResponse = 0;
@@ -93,6 +105,9 @@ public class EmployeeRepository {
 		return repositoryResponse;
 	}
 	
+	/**
+	The getEmployeesByDepartment function request all employees from specified department from db;
+	*/
 	public List<Employee> getEmployeesByDepartment(String department) {
 		
 		List<Employee> employees = new ArrayList<>();
